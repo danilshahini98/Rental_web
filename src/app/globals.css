@@ -1,0 +1,165 @@
+@import "tailwindcss";
+
+:root {
+  /* Page chrome (dark, cinematic) */
+  --page-ink: #f2f1ee;
+  --page-ink-muted: rgba(255, 255, 255, 0.62);
+  --page-ink-faint: rgba(255, 255, 255, 0.5);
+  --page-border: rgba(255, 255, 255, 0.08);
+  --page-chip-bg: rgba(255, 255, 255, 0.06);
+  --page-chip-border: rgba(255, 255, 255, 0.18);
+
+  /* Card surfaces (always light, "floating" on the dark page) */
+  --surface: #ffffff;
+  --surface-muted: #f1f0ec;
+  --border: #e4e2db;
+  --foreground: #1b1d22;
+  --muted: #6b6f76;
+
+  /* Brand */
+  --brand: #c8102e;
+  --brand-dark: #9c0c22;
+  --accent: #14213d;
+
+  /* Status */
+  --success: #1d7a4c;
+  --success-bg: #e7f6ee;
+  --warning: #92620a;
+  --warning-bg: #fdf3e0;
+  --danger: #b3261e;
+  --danger-bg: #fbe9e7;
+}
+
+@theme inline {
+  --color-brand: var(--brand);
+  --color-brand-dark: var(--brand-dark);
+  --color-accent: var(--accent);
+  --color-surface: var(--surface);
+  --color-surface-muted: var(--surface-muted);
+  --color-border: var(--border);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-success: var(--success);
+  --color-success-bg: var(--success-bg);
+  --color-warning: var(--warning);
+  --color-warning-bg: var(--warning-bg);
+  --color-danger: var(--danger);
+  --color-danger-bg: var(--danger-bg);
+  --font-sans: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  color: var(--page-ink);
+}
+
+body {
+  min-height: 100vh;
+  background:
+    radial-gradient(1100px 650px at 12% -8%, rgba(200, 16, 46, 0.22), transparent 60%),
+    radial-gradient(900px 650px at 92% 8%, rgba(20, 33, 61, 0.55), transparent 62%),
+    radial-gradient(800px 500px at 50% 100%, rgba(20, 33, 61, 0.35), transparent 65%),
+    linear-gradient(180deg, #0a0a0d 0%, #0e0b0e 55%, #0a0a0d 100%);
+  background-attachment: fixed;
+  font-family: var(--font-sans);
+}
+
+a {
+  color: inherit;
+}
+
+/* "Floating" white card used for all content surfaces */
+.surface-card {
+  background: var(--surface);
+  color: var(--foreground);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.45);
+}
+
+.map-panel {
+  border-radius: 14px;
+  overflow: hidden;
+  position: relative;
+  background:
+    radial-gradient(420px 320px at 28% 22%, rgba(200, 16, 46, 0.2), transparent 60%),
+    radial-gradient(420px 320px at 78% 72%, rgba(20, 33, 61, 0.65), transparent 60%),
+    #111219;
+  border: 1px solid var(--page-border);
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.45);
+}
+
+.map-grid {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.14) 1.4px, transparent 1.4px);
+  background-size: 28px 28px;
+  pointer-events: none;
+}
+
+.badge-pending {
+  background: var(--warning-bg);
+  color: var(--warning);
+}
+.badge-confirmed {
+  background: var(--success-bg);
+  color: var(--success);
+}
+.badge-declined {
+  background: var(--danger-bg);
+  color: var(--danger);
+}
+
+/* Leaflet overrides so the map reads correctly on the dark theme */
+.leaflet-container {
+  background: #111219 !important;
+  font-family: var(--font-sans) !important;
+}
+.leaflet-popup-content-wrapper {
+  background: var(--surface);
+  color: var(--foreground);
+  border-radius: 12px;
+}
+.leaflet-popup-tip {
+  background: var(--surface);
+}
+
+/* Dark-mode tile filter so OSM tiles match the cinematic theme */
+.map-panel .leaflet-tile {
+  filter: invert(1) hue-rotate(180deg) brightness(0.9) contrast(0.85) saturate(0.9);
+}
+.map-panel .leaflet-control-zoom a {
+  background: var(--surface) !important;
+  color: var(--foreground) !important;
+}
+
+.input-field {
+  height: 44px;
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0 12px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #1b1d22;
+  background: #fff;
+}
+.input-field:focus {
+  outline: none;
+  border-color: var(--brand);
+  box-shadow: 0 0 0 3px rgba(200, 16, 46, 0.12);
+}
+
+.btn-brand-sm {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 7px 14px;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 13px;
+  background: var(--brand);
+  color: #fff;
+}
